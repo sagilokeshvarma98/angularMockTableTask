@@ -1,0 +1,94 @@
+<div class="container">
+    <div class="filterDiv">
+        <span>FILTER :</span>
+        <select name="filter" id="filter" (change)="filterTableData($event)">
+            <option value="" selected>Select Gender</option>
+            <option value="male">
+                <i>M A L E</i>
+            </option>
+            <option value="female">
+                <i>F E M A L E</i>
+            </option>
+        </select>
+    </div>
+    <div class="sortDiv">
+        <span>SORT :</span>
+        <select name="sort" id="sort" (change)="sortTableData($event)">
+            <option value="a-z">Username(A-Z)</option>
+            <option value="z-a">Username(Z_A)</option>
+            <option value="lowExp"><h6>Experience(low to high)</h6></option>
+            <option value="highExp"><h6>Experience(high to low)</h6></option>
+        </select>
+    </div>
+   <div class="table-responsive">
+    <table class="table table-hover mb-0 ps-container-fluid ps-theme-default">
+        <thead>
+            <tr>
+                <th>
+                    Image
+                </th>
+                <th>
+                    First Name
+                </th>
+                <th>
+                    Last Name
+                </th>
+                <th>
+                    Username
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Gender
+                </th>
+                <th>
+                    Experience
+                </th>
+                <th>
+                    Developed Apps
+                </th>
+                <th>
+                    Time of joining
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let employee of data | filter : filterName | sort : sortName | paginate: { itemsPerPage: 10, currentPage: pageNumber}"
+             [ngClass]="employee.gender==='M' ? 'bg-secondary' : 'bg-danger'">
+                <td>
+                    <img src={{employee.imageUrl}} alt="">
+                </td>
+                <td>
+                    {{employee.firstName}}
+                </td>
+                <td>
+                    {{employee.lastName}}
+                </td>
+                <td>
+                    {{employee.username}}
+                </td>
+                <td>
+                    {{employee.email}}
+                </td>
+                <td>
+                    {{employee.gender}}
+                </td>
+                <td>
+                    {{employee.experience}}
+                </td>
+                <td>
+                    {{employee.appsDeveloped}}
+                </td>
+                <td>
+                    {{employee.joiningTime}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+   </div>
+    <div class="pagination">
+        <pagination-controls class="pagenation-controls" (pageChange)="pageNumber = $event">
+        </pagination-controls>
+    </div>
+</div>

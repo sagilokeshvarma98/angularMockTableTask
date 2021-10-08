@@ -9,7 +9,6 @@ import { HttpClientModule } from "@angular/common/http";
 import { NgxPaginationModule } from "ngx-pagination";
 import { FilterPipe } from './pipes/filter.pipe';
 import { SortPipe } from './pipes/sort.pipe';
-import { ModalModule } from "ngx-bootstrap/modal";
 
 @NgModule({
   declarations: [
@@ -22,8 +21,7 @@ import { ModalModule } from "ngx-bootstrap/modal";
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    NgxPaginationModule,
-    ModalModule.forRoot()
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

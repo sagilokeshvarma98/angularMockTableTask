@@ -1,0 +1,52 @@
+<ng-container>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    Image 
+                </th>
+                <th appSortTable [tableData]="employeeData" data-name="firstName">
+                    First Name <img (click)="sortByColumn()" src="https://static.vecteezy.com/system/resources/previews/000/615/375/original/vector-up-arrow-icon.jpg" alt="">
+                </th>
+                <th>Last Name</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Gender</th>
+                <th>Experience</th>
+                <th>Developed Apps</th>
+                <th>Time of joining</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let employee of employeeData">
+                <td>
+                    <img src={{employee.imageUrl}} alt="">
+                </td>
+                <td>
+                    {{employee.firstName}}
+                </td>
+                <td>
+                    {{employee.lastName}}
+                </td>
+                <td>
+                    {{employee.username}}
+                </td>
+                <td>
+                    {{employee.email}}
+                </td>
+                <td>
+                    {{employee.gender}}
+                </td>
+                <td>
+                    {{employee.experience}}
+                </td>
+                <td>
+                    {{employee.appsDeveloped}}
+                </td>
+                <td>
+                    {{employee.joiningTime}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</ng-container>

@@ -8,7 +8,8 @@ export interface IEmpData {
     appsDeveloped : string,
     username : string,
     joiningTime : string,
-    imageUrl : string
+    imageUrl : string,
+    dateString : number
 }
 
 

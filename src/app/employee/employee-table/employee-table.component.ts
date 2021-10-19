@@ -102,7 +102,6 @@ export class EmployeeTableComponent {
   {
     const obj:IEmpData = this.employeeEditObj.value
     obj.imageUrl = this.editObj.imageUrl
-    console.log(obj);
     this.empData.editEmployee(obj).subscribe(()=>this.getEmployeeData())
   }
 

@@ -13,4 +13,13 @@ export class EmployeeService {
   public getEmployeeData():Observable<IEmpData[]> {
     return this.http.get<IEmpData[]>("http://localhost:3000/empData")
   }
+
+  public deleteEmployee(id:number):Observable<IEmpData> {
+    return this.http.delete<IEmpData>(`http://localhost:3000/empData/${id}`)
+  }
+
+  public editEmployee(empObj:IEmpData ):Observable<IEmpData> {
+    return this.http.put<IEmpData>(`http://localhost:3000/empData/${empObj.id}`,empObj)
+  }
+
 }

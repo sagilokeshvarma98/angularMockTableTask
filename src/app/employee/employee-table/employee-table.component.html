@@ -1,61 +1,126 @@
-<ng-container>
+<ng-container *ngIf="employeeData.length>0">
+    <div class="modal fade" id="editEmployee" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="employeeEditObj" (ngSubmit)="editEmployee()">
+                        <div class="form-group">
+                            <label>I D</label>
+                            <input type="text"
+                              class="form-control" name="id"
+                                formControlName="id" placeholder="ID" [ngModel]="editObj.id" readonly />
+                        </div>
+
+                        <div class="form-group">
+                            <label> F I R S T N A M E </label>
+                            <input type="text"
+                              class="form-control" name="first name" [ngModel]="editObj.firstName"
+                                formControlName="firstName" placeholder="First Name" >
+                            <span class="text-danger"
+                                *ngIf="(editFromControls.firstName.touched) && editFromControls.firstName.errors?.required">
+                                Required*</span>
+                        </div>
+                        <div class="form-group">
+                            <label>L A S T N A M E</label>
+                            <input type="text"
+                              class="form-control" name="lastName"
+                                formControlName="lastName" placeholder="Last Name" [ngModel]="editObj.lastName">
+                            <span class="text-danger"
+                                *ngIf="(editFromControls.lastName.touched) && editFromControls.lastName.errors?.required">
+                                Required*</span>
+                        </div>
+                        <div class="form-group">
+                            <label>E M A I L</label>
+                            <input type="text"
+                              class="form-control" name="emial"
+                                formControlName="email" placeholder="Email" [ngModel]="editObj.email">
+                            <span class="text-danger"
+                                *ngIf="editFromControls.email.touched && editFromControls.email.errors?.required">
+                                Required*</span>
+                        </div>
+                        <div class="form-group">
+                            <label>G E N D E R</label>
+                            <input type="text"
+                              class="form-control" name="gender"
+                                formControlName="gender" placeholder="gender" [ngModel]="editObj.gender">
+                            <span class="text-danger"
+                                *ngIf="(editFromControls.gender.touched) && editFromControls.gender.errors?.required">
+                                Required*</span>
+                        </div>
+                        <div class="form-group">
+                            <label>E X P E R I E N C E</label>
+                            <input type="text"
+                              class="form-control" name="experience"
+                                formControlName="experience" placeholder="Experience " [ngModel]="editObj.experience">
+                            <span class="text-danger"
+                                *ngIf="(editFromControls.experience.touched) && editFromControls.experience.errors?.required">
+                                Required*</span>
+                        </div>
+                        <div class="form-group">
+                            <label>A P P S D E V E L O P E D</label>
+                            <input type="text"
+                              class="form-control" name="appsDeveloped"
+                                formControlName="appsDeveloped" placeholder="Apps Developed " [ngModel]="editObj.appsDeveloped">
+                            <span class="text-danger"
+                                *ngIf="(editFromControls.appsDeveloped.touched) && editFromControls.appsDeveloped.errors?.required">
+                                Required*</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label>U S E R N A M E</label>
+                            <input type="text"
+                              class="form-control" name="username"
+                                formControlName="username" placeholder="Username" [ngModel]="editObj.username">
+                            <span class="text-danger"
+                                *ngIf="(editFromControls.username.touched) && editFromControls.username.errors?.required">
+                                Required*</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label>J O I N I N I N G T I M E</label>
+                            <input type="date" formControlName="joiningTime"
+                              class="form-control" name="joiningTime" placeholder="J O I N I N G T I M E" >
+                        </div>
+                        
+                        <div>
+                            <button type="button" [disabled]="!employeeEditObj.valid" class="btn btn-primary" (click)="editEmployee()" data-dismiss="modal">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <table class="table table-bordered">
         <thead>
             <tr>
                 <th>
-                    Image 
+                    Image
                 </th>
-                <th
-                appSortTable 
-                 [isDefault]="true"
-                 [isAscending]="false"
-                 [colName]="'firstName'" 
-                 (getSortValues)="sortByColumn($event)"
-                 >
+                <th appSortTable [isDefault]="true" [isAscending]="false" [colName]="'firstName'"
+                    (getSortValues)="sortByColumn($event)">
                     First Name
                 </th>
-                <th
-                appSortTable
-                [isDefault]="true"
-                [colName]="'lastName'"
-                (getSortValues)="sortByColumn($event)"
-                >Last Name</th>
-                <th
-                appSortTable
-                [isDefault]="true"
-                [colName]="'username'"
-                (getSortValues)="sortByColumn($event)"
-                >Username</th>
-                <th
-                appSortTable
-                [isDefault]="true"
-                [colName]="'email'"
-                (getSortValues)="sortByColumn($event)"
-                >Email</th>
-                <th
-                appSortTable
-                [isDefault]="true"
-                [colName]="'gender'"
-                (getSortValues)="sortByColumn($event)"
-                >Gender</th>
-                <th
-                appSortTable
-                [isDefault]="true"
-                [colName]="'experience'"
-                (getSortValues)="sortByColumn($event)"
-                >Experience</th>
-                <th
-                appSortTable
-                [isDefault]="true"
-                [colName]="'appsDeveloped'"
-                (getSortValues)="sortByColumn($event)"
-                >Developed Apps</th>
-                <th
-                appSortTable
-                [isDefault]="true"
-                [colName]="'joiningTime'"
-                (getSortValues)="sortByColumn($event)"
-                >Time of joining</th>
+                <th appSortTable [colName]="'lastName'" (getSortValues)="sortByColumn($event)">Last
+                    Name</th>
+                <th appSortTable [colName]="'username'" (getSortValues)="sortByColumn($event)">
+                    Username</th>
+                <th appSortTable [colName]="'email'" (getSortValues)="sortByColumn($event)">Email
+                </th>
+                <th appSortTable [colName]="'gender'" (getSortValues)="sortByColumn($event)">Gender
+                </th>
+                <th appSortTable [colName]="'experience'" (getSortValues)="sortByColumn($event)">
+                    Experience</th>
+                <th appSortTable [colName]="'appsDeveloped'" (getSortValues)="sortByColumn($event)">
+                    Developed Apps</th>
+                <th appSortTable [colName]="'joiningTime'" (getSortValues)="sortByColumn($event)">
+                    Time of joining</th>
             </tr>
         </thead>
         <tbody>
@@ -86,6 +151,17 @@
                 </td>
                 <td>
                     {{employee.joiningTime}}
+                </td>
+                <td>
+                    <button class="btn btn-danger" (click)="deleteRow(employee.id)">
+                        Delete
+                    </button>
+                </td>
+                <td>
+                    <button class="btn btn-warning" data-toggle="modal" data-target="#editEmployee"
+                        (click)="selectEditObj(employee)">
+                        Edit
+                    </button>
                 </td>
             </tr>
         </tbody>

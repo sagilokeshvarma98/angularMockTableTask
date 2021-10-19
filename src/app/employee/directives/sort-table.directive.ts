@@ -1,8 +1,8 @@
-import { Directive, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
+import { Directive, EventEmitter, HostListener, Input, Output} from '@angular/core';
 @Directive({
   selector: '[appSortTable]'
 })
-export class SortTableDirective implements OnInit {
+export class SortTableDirective {
 
   @Input() colName:string = "";
   @Input() isAscending:boolean = true;
@@ -14,19 +14,8 @@ export class SortTableDirective implements OnInit {
     this.getSortValues.emit({
       isAscending: this.isAscending,
       colName: this.colName,
-      isDefault: this.isDefault
     })
   }
-
-   ngOnInit() {
-    if(this.isDefault) {
-      this.getSortValues.emit({
-        isAscending: this.isAscending,
-        colName: this.colName,
-        isDefault: this.isDefault
-      })
-    }
-   }
 
   
   // toCheckTheTable() {

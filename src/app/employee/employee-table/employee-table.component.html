@@ -1,9 +1,103 @@
 <ng-container *ngIf="employeeData.length>0">
+
+    <!-- Modal to add employee -->
+
+    <div class="modal fade" id="addEmployee" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addEmp">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="employeeEditObj">
+                        <div class="form-group">
+                            <label> F I R S T N A M E </label>
+                            <input type="text" class="form-control" name="first name"
+                                formControlName="firstName" placeholder="First Name">
+                            <span class="text-danger"
+                                *ngIf="(editFromControls.firstName.touched) && editFromControls.firstName.errors?.required">
+                                Required*</span>
+                        </div>
+                        <div class="form-group">
+                            <label>L A S T N A M E</label>
+                            <input type="text" class="form-control" name="lastName" 
+                            formControlName="lastName" placeholder="Last Name">
+                            <span class="text-danger"
+                                *ngIf="(editFromControls.lastName.touched) && editFromControls.lastName.errors?.required">
+                                Required*</span>
+                        </div>
+                        <div class="form-group">
+                            <label>E M A I L</label>
+                            <input type="text" class="form-control" name="emial" formControlName="email"
+                                placeholder="Email">
+                            <span class="text-danger"
+                                *ngIf="editFromControls.email.touched && editFromControls.email.errors?.required">
+                                Required*</span>
+                        </div>
+                        <div class="form-group">
+                            <label>G E N D E R</label>
+                            <select name="gender" formControlName="gender" id="gender">
+                                <option value="M">M</option>
+                                <option value="F">F</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>E X P E R I E N C E</label>
+                            <input type="text" class="form-control" name="experience" formControlName="experience"
+                                placeholder="Experience">
+                            <span class="text-danger"
+                                *ngIf="(editFromControls.experience.touched) && editFromControls.experience.errors?.required">
+                                Required*</span>
+                        </div>
+                        <div class="form-group">
+                            <label>A P P S D E V E L O P E D</label>
+                            <input type="text" class="form-control" name="appsDeveloped" formControlName="appsDeveloped"
+                                placeholder="Apps Developed">
+                            <span class="text-danger"
+                                *ngIf="(editFromControls.appsDeveloped.touched) && editFromControls.appsDeveloped.errors?.required">
+                                Required*</span>
+                        </div>
+                        <div class="form-group">
+                            <label>U S E R N A M E</label>
+                            <input type="text" class="form-control" name="username" formControlName="username"
+                                placeholder="Username">
+                            <span class="text-danger"
+                                *ngIf="(editFromControls.username.touched) && editFromControls.username.errors?.required">
+                                Required*</span>
+                        </div>
+                        <div class="form-group">
+                            <label>J O I N I N I N G T I M E</label>
+                            <input type="date" formControlName="joiningTime" class="form-control" name="joiningTime"
+                                placeholder="J O I N I N G T I M E">
+                        </div>
+                        <div class="form-group">
+                            <label>I M A G E U R L</label>
+                            <input type="text" formControlName="imageUrl" class="form-control" name="imageUrl"
+                                placeholder="Image url">
+                        </div>
+                        <div class="text text-center">
+                            <button type="button" [disabled]="!employeeEditObj.valid" class="btn btn-primary"
+                                (click)="addEmployee()">Add Employee</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button class="btn btn-warning addButton" data-toggle="modal" data-target="#addEmployee">
+        Add
+    </button>
+
+    <!-- Modal to edit employee -->
     <div class="modal fade" id="editEmployee" tabindex="-1" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                    <h5 class="modal-title" id="editEmp">Modal title</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -12,61 +106,54 @@
                     <form [formGroup]="employeeEditObj" (ngSubmit)="editEmployee()">
                         <div class="form-group">
                             <label>I D</label>
-                            <input type="text"
-                              class="form-control" name="id"
-                                formControlName="id" placeholder="ID" [ngModel]="editObj.id" readonly />
+                            <input type="text" class="form-control" name="id" formControlName="id" placeholder="ID"
+                                [ngModel]="editObj.id" readonly />
                         </div>
 
                         <div class="form-group">
                             <label> F I R S T N A M E </label>
-                            <input type="text"
-                              class="form-control" name="first name" [ngModel]="editObj.firstName"
-                                formControlName="firstName" placeholder="First Name" >
+                            <input type="text" class="form-control" name="first name" [ngModel]="editObj.firstName"
+                                formControlName="firstName" placeholder="First Name">
                             <span class="text-danger"
                                 *ngIf="(editFromControls.firstName.touched) && editFromControls.firstName.errors?.required">
                                 Required*</span>
                         </div>
                         <div class="form-group">
                             <label>L A S T N A M E</label>
-                            <input type="text"
-                              class="form-control" name="lastName"
-                                formControlName="lastName" placeholder="Last Name" [ngModel]="editObj.lastName">
+                            <input type="text" class="form-control" name="lastName" formControlName="lastName"
+                                placeholder="Last Name" [ngModel]="editObj.lastName">
                             <span class="text-danger"
                                 *ngIf="(editFromControls.lastName.touched) && editFromControls.lastName.errors?.required">
                                 Required*</span>
                         </div>
                         <div class="form-group">
                             <label>E M A I L</label>
-                            <input type="text"
-                              class="form-control" name="emial"
-                                formControlName="email" placeholder="Email" [ngModel]="editObj.email">
+                            <input type="text" class="form-control" name="emial" formControlName="email"
+                                placeholder="Email" [ngModel]="editObj.email">
                             <span class="text-danger"
                                 *ngIf="editFromControls.email.touched && editFromControls.email.errors?.required">
                                 Required*</span>
                         </div>
                         <div class="form-group">
                             <label>G E N D E R</label>
-                            <input type="text"
-                              class="form-control" name="gender"
-                                formControlName="gender" placeholder="gender" [ngModel]="editObj.gender">
+                            <input type="text" class="form-control" name="gender" formControlName="gender"
+                                placeholder="gender" [ngModel]="editObj.gender">
                             <span class="text-danger"
                                 *ngIf="(editFromControls.gender.touched) && editFromControls.gender.errors?.required">
                                 Required*</span>
                         </div>
                         <div class="form-group">
                             <label>E X P E R I E N C E</label>
-                            <input type="text"
-                              class="form-control" name="experience"
-                                formControlName="experience" placeholder="Experience " [ngModel]="editObj.experience">
+                            <input type="text" class="form-control" name="experience" formControlName="experience"
+                                placeholder="Experience " [ngModel]="editObj.experience">
                             <span class="text-danger"
                                 *ngIf="(editFromControls.experience.touched) && editFromControls.experience.errors?.required">
                                 Required*</span>
                         </div>
                         <div class="form-group">
                             <label>A P P S D E V E L O P E D</label>
-                            <input type="text"
-                              class="form-control" name="appsDeveloped"
-                                formControlName="appsDeveloped" placeholder="Apps Developed " [ngModel]="editObj.appsDeveloped">
+                            <input type="text" class="form-control" name="appsDeveloped" formControlName="appsDeveloped"
+                                placeholder="Apps Developed " [ngModel]="editObj.appsDeveloped">
                             <span class="text-danger"
                                 *ngIf="(editFromControls.appsDeveloped.touched) && editFromControls.appsDeveloped.errors?.required">
                                 Required*</span>
@@ -74,9 +161,8 @@
 
                         <div class="form-group">
                             <label>U S E R N A M E</label>
-                            <input type="text"
-                              class="form-control" name="username"
-                                formControlName="username" placeholder="Username" [ngModel]="editObj.username">
+                            <input type="text" class="form-control" name="username" formControlName="username"
+                                placeholder="Username" [ngModel]="editObj.username">
                             <span class="text-danger"
                                 *ngIf="(editFromControls.username.touched) && editFromControls.username.errors?.required">
                                 Required*</span>
@@ -84,12 +170,13 @@
 
                         <div class="form-group">
                             <label>J O I N I N I N G T I M E</label>
-                            <input type="date" formControlName="joiningTime"
-                              class="form-control" name="joiningTime" placeholder="J O I N I N G T I M E" >
+                            <input type="date" formControlName="joiningTime" class="form-control" name="joiningTime"
+                                placeholder="J O I N I N G T I M E">
                         </div>
-                        
+
                         <div>
-                            <button type="button" [disabled]="!employeeEditObj.valid" class="btn btn-primary" (click)="editEmployee()" data-dismiss="modal">Save Changes</button>
+                            <button type="button" [disabled]="!employeeEditObj.valid" class="btn btn-primary"
+                                (click)="editEmployee()" data-dismiss="modal">Save Changes</button>
                         </div>
                     </form>
                 </div>

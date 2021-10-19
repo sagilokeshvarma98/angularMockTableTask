@@ -105,6 +105,12 @@ export class EmployeeTableComponent {
     this.empData.editEmployee(obj).subscribe(()=>this.getEmployeeData())
   }
 
+  addEmployee() {
+    let addObj = this.employeeEditObj.value
+    addObj.id = Math.random() * 10000
+    this.empData.addEmployee(addObj).subscribe(()=>this.getEmployeeData());
+  }
+
 //    returnSortValue(colName , isAscending){
 //   return function(a:IEmpData ,b:IEmpData ) => {
 //     if (a[colName]> b[colName]) {

@@ -107,12 +107,12 @@
                         <div class="form-group">
                             <label>I D</label>
                             <input type="text" class="form-control" name="id" formControlName="id" placeholder="ID"
-                                [ngModel]="editObj.id" readonly />
+                                readonly />
                         </div>
 
                         <div class="form-group">
                             <label> F I R S T N A M E </label>
-                            <input type="text" class="form-control" name="first name" [ngModel]="editObj.firstName"
+                            <input type="text" class="form-control" name="first name"
                                 formControlName="firstName" placeholder="First Name">
                             <span class="text-danger"
                                 *ngIf="(editFromControls.firstName.touched) && editFromControls.firstName.errors?.required">
@@ -121,7 +121,7 @@
                         <div class="form-group">
                             <label>L A S T N A M E</label>
                             <input type="text" class="form-control" name="lastName" formControlName="lastName"
-                                placeholder="Last Name" [ngModel]="editObj.lastName">
+                                placeholder="Last Name">
                             <span class="text-danger"
                                 *ngIf="(editFromControls.lastName.touched) && editFromControls.lastName.errors?.required">
                                 Required*</span>
@@ -129,7 +129,7 @@
                         <div class="form-group">
                             <label>E M A I L</label>
                             <input type="text" class="form-control" name="emial" formControlName="email"
-                                placeholder="Email" [ngModel]="editObj.email">
+                                placeholder="Email">
                             <span class="text-danger"
                                 *ngIf="editFromControls.email.touched && editFromControls.email.errors?.required">
                                 Required*</span>
@@ -137,7 +137,7 @@
                         <div class="form-group">
                             <label>G E N D E R</label>
                             <input type="text" class="form-control" name="gender" formControlName="gender"
-                                placeholder="gender" [ngModel]="editObj.gender">
+                                placeholder="gender">
                             <span class="text-danger"
                                 *ngIf="(editFromControls.gender.touched) && editFromControls.gender.errors?.required">
                                 Required*</span>
@@ -145,7 +145,7 @@
                         <div class="form-group">
                             <label>E X P E R I E N C E</label>
                             <input type="text" class="form-control" name="experience" formControlName="experience"
-                                placeholder="Experience " [ngModel]="editObj.experience">
+                                placeholder="Experience">
                             <span class="text-danger"
                                 *ngIf="(editFromControls.experience.touched) && editFromControls.experience.errors?.required">
                                 Required*</span>
@@ -153,7 +153,7 @@
                         <div class="form-group">
                             <label>A P P S D E V E L O P E D</label>
                             <input type="text" class="form-control" name="appsDeveloped" formControlName="appsDeveloped"
-                                placeholder="Apps Developed " [ngModel]="editObj.appsDeveloped">
+                                placeholder="Apps Developed">
                             <span class="text-danger"
                                 *ngIf="(editFromControls.appsDeveloped.touched) && editFromControls.appsDeveloped.errors?.required">
                                 Required*</span>
@@ -162,7 +162,7 @@
                         <div class="form-group">
                             <label>U S E R N A M E</label>
                             <input type="text" class="form-control" name="username" formControlName="username"
-                                placeholder="Username" [ngModel]="editObj.username">
+                                placeholder="Username">
                             <span class="text-danger"
                                 *ngIf="(editFromControls.username.touched) && editFromControls.username.errors?.required">
                                 Required*</span>

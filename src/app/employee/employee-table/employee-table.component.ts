@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { EmployeeService } from 'src/app/employee.service';
 import { IEmpData } from "../../Interfaces/interface";
@@ -8,23 +8,10 @@ import { IEmpData } from "../../Interfaces/interface";
   templateUrl: './employee-table.component.html',
   styleUrls: ['./employee-table.component.scss']
 })
-export class EmployeeTableComponent {
+export class EmployeeTableComponent implements OnInit {
 
-  public employeeData:IEmpData[] = []
-  public editObj:IEmpData = {
-    id: 1,
-    firstName: '',
-    lastName: '',
-    email: '',
-    gender: '',
-    experience: 1,
-    appsDeveloped: '',
-    username: '',
-    joiningTime: '',
-    imageUrl: '',
-    dateString: 1
-  };
-  
+  employeeData:IEmpData[] = []
+  editObj!: IEmpData
   public employeeEditObj:FormGroup;
 
   constructor(private empData:EmployeeService , private build:FormBuilder) {
@@ -42,6 +29,10 @@ export class EmployeeTableComponent {
       imageUrl: ['']
     })
    }
+   
+  ngOnInit() {
+    // this.empData.testNode1().subscribe(res=>console.log(res));
+  }
 
    get editFromControls() {
     return this.employeeEditObj.controls;
@@ -96,6 +87,14 @@ export class EmployeeTableComponent {
   selectEditObj(employee:IEmpData)
   {
     this.editObj = employee
+    this.employeeEditObj.controls['id'].setValue(employee.id);
+    this.employeeEditObj.controls['firstName'].setValue(employee.firstName);
+    this.employeeEditObj.controls['lastName'].setValue(employee.lastName);
+    this.employeeEditObj.controls['email'].setValue(employee.email);
+    this.employeeEditObj.controls['experience'].setValue(employee.experience);
+    this.employeeEditObj.controls['gender'].setValue(employee.gender);
+    this.employeeEditObj.controls['appsDeveloped'].setValue(employee.appsDeveloped);
+    this.employeeEditObj.controls['username'].setValue(employee.username);
   }
 
   editEmployee()

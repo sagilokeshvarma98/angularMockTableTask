@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import {IEmpData} from './Interfaces/interface'
+import {IEmpData} from './Interfaces/interface';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +9,10 @@ import {IEmpData} from './Interfaces/interface'
 export class EmployeeService {
 
   constructor(public http:HttpClient) { }
+
+  public testNode1() {
+    return this.http.get('http://localhost:3000/empData');
+  }
 
   public getEmployeeData():Observable<IEmpData[]> {
     return this.http.get<IEmpData[]>("http://localhost:3000/empData")

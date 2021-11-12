@@ -5,11 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { EmployeeDataComponent } from './employee-data/employee-data.component';
 
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { NgxPaginationModule } from "ngx-pagination";
 import { FilterPipe } from './pipes/filter.pipe';
 import { SortPipe } from './pipes/sort.pipe';
 import { EmployeeModule } from './employee/employee.module';
+import { HttprequestInterceptor } from './interceptors/httprequest.interceptor';
+import { ResponseInterceptor } from './interceptors/response.interceptor';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,10 @@ import { EmployeeModule } from './employee/employee.module';
     NgxPaginationModule,
     EmployeeModule
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS,useClass: HttprequestInterceptor,multi: true},
+    {provide: HTTP_INTERCEPTORS,useClass: ResponseInterceptor,multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

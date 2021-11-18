@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { EmployeeService } from '../employee.service';
-import { IEmpData } from '../Interfaces/interface';
+import { EmployeeService } from '../core/services/employee.service';
+import { IEmpData } from '../core/Interfaces/interface';
 @Component({
   selector: 'app-employee-data',
   templateUrl: './employee-data.component.html',

@@ -7,25 +7,23 @@ import { EmployeeDataComponent } from './employee-data/employee-data.component';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { NgxPaginationModule } from "ngx-pagination";
-import { FilterPipe } from './pipes/filter.pipe';
-import { SortPipe } from './pipes/sort.pipe';
 import { EmployeeModule } from './employee/employee.module';
-import { HttprequestInterceptor } from './interceptors/httprequest.interceptor';
-import { ResponseInterceptor } from './interceptors/response.interceptor';
+import { HttprequestInterceptor } from './core/interceptors/httprequest.interceptor';
+import { ResponseInterceptor } from './core/interceptors/response.interceptor';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    EmployeeDataComponent,
-    FilterPipe,
-    SortPipe
+    EmployeeDataComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     NgxPaginationModule,
-    EmployeeModule
+    EmployeeModule,
+    CoreModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS,useClass: HttprequestInterceptor,multi: true},

@@ -1,15 +1,16 @@
 const express = require('express');
-const path = require("path");
-const util = require('util');
+const bodyParser = require('body-parser')
+const cors = require('cors');
 const fs = require('fs');
 
 const app = express();
 
+app.use(cors());
 // const bodyParser = require("body-parser");
 
 // app.use(bodyParser.json());
 
-const PORT = 3000;
+const PORT = 5000;
 
 app.listen(PORT, () => {
     console.log(`server is running on port ${PORT}`);
@@ -17,8 +18,8 @@ app.listen(PORT, () => {
 
 app.get('/empData', (req, res) => {
     console.log("Hello, I came here...");
-    // res.json({ "data": "Hello" })
-    fs.readFile('./mock_data.json',(err,jsonString)=>{
-        res.json({data : jsonString});
-    })
+    res.send({ "data": "Hello" })
+    // fs.readFile('./mock_data.json',(err,jsonString)=>{
+    //     res.json({data : jsonString});
+    // })
 })

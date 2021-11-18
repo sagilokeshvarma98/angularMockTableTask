@@ -1,20 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { EmployeeService } from 'src/app/employee.service';
-import { IEmpData } from "../../Interfaces/interface";
+import { EmployeeService } from 'src/app/core/services/employee.service';
+import { IEmpData } from "../../core/Interfaces/interface";
 
 @Component({
   selector: 'app-employee-table',
   templateUrl: './employee-table.component.html',
   styleUrls: ['./employee-table.component.scss']
 })
-export class EmployeeTableComponent implements OnInit {
+export class EmployeeTableComponent {
 
   employeeData:IEmpData[] = []
   editObj!: IEmpData
   public employeeEditObj:FormGroup;
 
-  constructor(private empData:EmployeeService , private build:FormBuilder) {
+  constructor(private empDataSer:EmployeeService , private build:FormBuilder) {
     this.getEmployeeData()
     this.employeeEditObj = this.build.group({
       id: [''],
@@ -29,17 +29,16 @@ export class EmployeeTableComponent implements OnInit {
       imageUrl: ['']
     })
    }
-   
-  ngOnInit() {
-    // this.empData.testNode1().subscribe(res=>console.log(res));
-  }
 
    get editFromControls() {
     return this.employeeEditObj.controls;
   }
 
   public getEmployeeData() {
-    this.empData.getEmployeeData().subscribe(res=>{
+    this.empDataSer.testNode1().subscribe(res=>{
+      console.log(res);
+    })
+    this.empDataSer.getEmployeeData().subscribe((res:IEmpData[])=>{
       this.employeeData = res.filter((x:IEmpData)=>{
         let date = new Date(x.joiningTime)
         x.dateString = new Date( date.getMonth(), date.getDate(), date.getFullYear(), 0o0, 0o0, 0o0).getTime()
@@ -81,7 +80,7 @@ export class EmployeeTableComponent implements OnInit {
     const user = this.employeeData[idNo-1].username
     const conformationToDelete = confirm("Do you want to delete "+user+"?")
     if(conformationToDelete)
-      this.empData.deleteEmployee(idNo).subscribe(()=>this.getEmployeeData())
+      this.empDataSer.deleteEmployee(idNo).subscribe(()=>this.getEmployeeData())
   }
 
   selectEditObj(employee:IEmpData)
@@ -101,13 +100,13 @@ export class EmployeeTableComponent implements OnInit {
   {
     const obj:IEmpData = this.employeeEditObj.value
     obj.imageUrl = this.editObj.imageUrl
-    this.empData.editEmployee(obj).subscribe(()=>this.getEmployeeData())
+    this.empDataSer.editEmployee(obj).subscribe(()=>this.getEmployeeData())
   }
 
   addEmployee() {
     let addObj = this.employeeEditObj.value
     addObj.id = Math.random() * 10000
-    this.empData.addEmployee(addObj).subscribe(()=>this.getEmployeeData());
+    this.empDataSer.addEmployee(addObj).subscribe(()=>this.getEmployeeData());
   }
 
 //    returnSortValue(colName , isAscending){

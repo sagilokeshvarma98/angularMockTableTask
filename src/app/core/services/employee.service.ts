@@ -10,25 +10,22 @@ export class EmployeeService {
 
   constructor(public http:HttpClient) { }
 
-  public testNode1():Observable<any>
-  {
-    return this.http.get('http://http://localhost:5000/empData');
-  }
+  nodeURL = 'http://localhost:5000/empData'
 
   public getEmployeeData():Observable<IEmpData[]> {
-    return this.http.get<IEmpData[]>("http://localhost:3000/empData")
+    return this.http.get<IEmpData[]>(this.nodeURL)
   }
 
   public deleteEmployee(id:number):Observable<IEmpData> {
-    return this.http.delete<IEmpData>(`http://localhost:3000/empData/${id}`)
+    return this.http.delete<IEmpData>(`${this.nodeURL}/${id}`)
   }
 
   public editEmployee(empObj:IEmpData):Observable<IEmpData> {
-    return this.http.put<IEmpData>(`http://localhost:3000/empData/${empObj.id}`,empObj)
+    return this.http.put<IEmpData>(this.nodeURL,empObj)
   }
 
   public addEmployee(empObj:IEmpData):Observable<IEmpData> {
-    return this.http.post<IEmpData>("http://localhost:3000/empData",empObj)
+    return this.http.post<IEmpData>(this.nodeURL,empObj)
   }
 
 }

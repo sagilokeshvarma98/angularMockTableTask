@@ -35,10 +35,7 @@ export class EmployeeTableComponent {
   }
 
   public getEmployeeData() {
-    this.empDataSer.testNode1().subscribe(res=>{
-      console.log(res);
-    })
-    this.empDataSer.getEmployeeData().subscribe((res:IEmpData[])=>{
+    this.empDataSer.getEmployeeData().subscribe((res:IEmpData[])=>{   
       this.employeeData = res.filter((x:IEmpData)=>{
         let date = new Date(x.joiningTime)
         x.dateString = new Date( date.getMonth(), date.getDate(), date.getFullYear(), 0o0, 0o0, 0o0).getTime()
@@ -65,10 +62,10 @@ export class EmployeeTableComponent {
 
    compare(colName : keyof IEmpData, isAsscending : boolean) {
     return function(a: IEmpData, b: IEmpData) {
-      if (a[colName] < b[colName]) {
+      if (a[colName].toString().toLowerCase() < b[colName].toString().toLowerCase()) {
         return isAsscending ? -1 : 1;
       }
-      if (a[colName] > b[colName]) {
+      if (a[colName].toString().toLowerCase() > b[colName].toString().toLowerCase()) {
         return isAsscending ? 1 : -1;
       }
       return 0;
@@ -105,8 +102,11 @@ export class EmployeeTableComponent {
 
   addEmployee() {
     let addObj = this.employeeEditObj.value
-    addObj.id = Math.random() * 10000
-    this.empDataSer.addEmployee(addObj).subscribe(()=>this.getEmployeeData());
+    addObj.id = Math.round(Math.random() * 10000)
+    this.empDataSer.addEmployee(addObj).subscribe((res)=>{
+      this.getEmployeeData()
+      console.log(res);
+    });
   }
 
 //    returnSortValue(colName , isAscending){

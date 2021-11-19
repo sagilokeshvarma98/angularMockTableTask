@@ -17,7 +17,6 @@ export class SortTableDirective {
     })
   }
 
-  
   // toCheckTheTable() {
     // type TEmpData = keyof IEmpData;
   //   const element = this.el.nativeElement

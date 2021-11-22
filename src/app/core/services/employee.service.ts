@@ -8,9 +8,10 @@ import {IEmpData} from '../Interfaces/interface';
 })
 export class EmployeeService {
 
+  nodeURL = 'http://localhost:5000/empData'
+  
   constructor(public http:HttpClient) { }
 
-  nodeURL = 'http://localhost:5000/empData'
 
   public getEmployeeData():Observable<IEmpData[]> {
     return this.http.get<IEmpData[]>(this.nodeURL)

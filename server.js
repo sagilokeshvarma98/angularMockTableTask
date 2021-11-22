@@ -19,9 +19,9 @@ app.listen(PORT, () => {
     console.log(`server is running on port ${PORT}`);
 })
 
+
 app.get('/empData', (req, res) => {
-    console.log("Hello, I came here...");
-    // res.send({ "data": "Hello" })
+    console.log("Hello, I came here to get");
     fs.readFile('./mock_data.json', (err, jsonString) => {
         res.send(JSON.parse(jsonString).empData)
     })
@@ -29,6 +29,7 @@ app.get('/empData', (req, res) => {
 
 
 app.post('/empData', (req, res) => {
+    console.log("Hello, I came here to post");
     empDataJsonFile.empData.push(req.body)
     fs.writeFile("./mock_data.json", JSON.stringify(empDataJsonFile), err => {
         if (err) throw err;
@@ -39,13 +40,14 @@ app.post('/empData', (req, res) => {
 
 
 app.put('/empData', (req, res) => {
-    empDataJsonFile.empData = empDataJsonFile.empData.map((x,index) => {
-        if(x.id == req.body.id){
+    console.log("Hello, I came here to update");
+    empDataJsonFile.empData = empDataJsonFile.empData.map((x, index) => {
+        if (x.id == req.body.id) {
             x = req.body
             return x
         }
         else
-        return x;
+            return x;
     })
     fs.writeFile("./mock_data.json", JSON.stringify(empDataJsonFile), err => {
         if (err) throw err;
@@ -56,6 +58,7 @@ app.put('/empData', (req, res) => {
 
 
 app.delete('/empData/:id', (req, res) => {
+    console.log("Hello, I came here to delete");
     empDataJsonFile.empData = empDataJsonFile.empData.filter((x) => {
         if (x.id != req.params.id)
             return x;

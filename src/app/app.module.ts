@@ -28,9 +28,14 @@ import { CoreModule } from './core/core.module';
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: HttprequestInterceptor, multi: true
+      useClass: HttprequestInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ResponseInterceptor,
+      multi: true
     }
-    // ,{provide: HTTP_INTERCEPTORS,useClass: ResponseInterceptor,multi: true}
   ],
   bootstrap: [AppComponent]
 })

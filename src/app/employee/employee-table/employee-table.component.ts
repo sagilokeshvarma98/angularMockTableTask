@@ -103,9 +103,8 @@ export class EmployeeTableComponent {
   addEmployee() {
     let addObj = this.employeeEditObj.value
     addObj.id = Math.round(Math.random() * 10000)
-    this.empDataSer.addEmployee(addObj).subscribe((res)=>{
+    this.empDataSer.addEmployee(addObj).subscribe(()=>{
       this.getEmployeeData()
-      console.log(res);
     });
   }
 

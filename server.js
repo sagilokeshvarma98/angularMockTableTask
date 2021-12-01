@@ -1,3 +1,4 @@
+/*eslint-env es6*/
 const express = require('express');
 const bodyParser = require('body-parser')
 const cors = require('cors');
@@ -21,7 +22,7 @@ app.listen(PORT, () => {
 
 
 app.get('/empData', (req, res) => {
-    console.log("Hello, I came here to get");
+    console.log("Hello, I came here to GET");
     fs.readFile('./mock_data.json', (err, jsonString) => {
         res.send(JSON.parse(jsonString).empData)
     })
@@ -29,18 +30,17 @@ app.get('/empData', (req, res) => {
 
 
 app.post('/empData', (req, res) => {
-    console.log("Hello, I came here to post");
+    console.log("Hello, I came here to POST");
     empDataJsonFile.empData.push(req.body)
     fs.writeFile("./mock_data.json", JSON.stringify(empDataJsonFile), err => {
         if (err) throw err;
-        console.log("Done writing");
         res.send(req.body)
     });
 })
 
 
 app.put('/empData', (req, res) => {
-    console.log("Hello, I came here to update");
+    console.log("Hello, I came here to UPDATE");
     empDataJsonFile.empData = empDataJsonFile.empData.map((x, index) => {
         if (x.id == req.body.id) {
             x = req.body
@@ -51,21 +51,19 @@ app.put('/empData', (req, res) => {
     })
     fs.writeFile("./mock_data.json", JSON.stringify(empDataJsonFile), err => {
         if (err) throw err;
-        console.log("Done updating");
         res.send(req.params.id)
     });
 })
 
 
 app.delete('/empData/:id', (req, res) => {
-    console.log("Hello, I came here to delete");
+    console.log("Hello, I came here to DELETE");
     empDataJsonFile.empData = empDataJsonFile.empData.filter((x) => {
         if (x.id != req.params.id)
             return x;
     })
     fs.writeFile("./mock_data.json", JSON.stringify(empDataJsonFile), err => {
         if (err) throw err;
-        console.log("Done writing");
         res.send(req.params.id)
     });
 })

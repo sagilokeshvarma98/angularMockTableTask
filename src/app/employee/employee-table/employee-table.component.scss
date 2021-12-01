@@ -6,9 +6,38 @@ td{
 }
 
 .addButton{
-    background-color: darkgoldenrod;
     width: 70px;
     height: 35px;
     margin: 20px;
-    color: lightcyan;
+}
+
+table{
+    thead{
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-size: small;
+        color: rgba(32, 156, 160, 0.808);
+    }
+    tbody{
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        font-weight: 800;
+        color: brown;
+        img{
+            box-shadow: 0px 10px 10px 10px;
+        }
+        .deleteButton{
+            margin-top: 10px;
+            background-color: rgb(223, 82, 26);
+            color: white;
+            font-size: smaller;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+        .editButton{
+            margin-top: 10px;
+            background-color: rgba(20, 188, 218, 0.76);
+            color: white;
+            font-size: smaller;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+        }
+    }
 }

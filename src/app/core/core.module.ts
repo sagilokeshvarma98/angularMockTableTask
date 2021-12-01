@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { SortPipe } from './pipes/sort.pipe';
 import { FilterPipe } from './pipes/filter.pipe';
 import { SortTableDirective } from './directives/sort-table.directive';
+import { NetworkErrorComponent } from './network-error/network-error.component';
+import { ConformationModalComponent } from './conformation-modal/conformation-modal.component';
 
 
 
@@ -10,7 +12,9 @@ import { SortTableDirective } from './directives/sort-table.directive';
   declarations: [
     FilterPipe,
     SortPipe,
-    SortTableDirective
+    SortTableDirective,
+    NetworkErrorComponent,
+    ConformationModalComponent
   ],
   imports: [
     CommonModule
@@ -18,7 +22,9 @@ import { SortTableDirective } from './directives/sort-table.directive';
   exports: [
     SortPipe,
     FilterPipe,
-    SortTableDirective
+    SortTableDirective,
+    NetworkErrorComponent,
+    ConformationModalComponent
   ]
 })
 export class CoreModule { }

@@ -88,8 +88,9 @@
         </div>
     </div>
 
-    <button class="btn btn-md addButton" data-toggle="modal" data-target="#addEmployee">
-        Add
+    <button type="button" class="btn btn-primary addButton"
+     data-toggle="modal" data-target="#addEmployee" (click)="resetEmployee()">
+        A D D
     </button>
 
     <!-- Modal to edit employee -->
@@ -211,7 +212,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let employee of employeeData">
+            <tr *ngFor="let employee of employeeData;let i=index">
                 <td>
                     <img src={{employee.imageUrl}} alt="">
                 </td>
@@ -240,14 +241,14 @@
                     {{employee.joiningTime}}
                 </td>
                 <td>
-                    <button class="btn btn-danger" (click)="deleteRow(employee.id)">
-                        Delete
+                    <button class="btn deleteButton" (click)="deleteRow(employee.id,i)">
+                        D E L E T E
                     </button>
                 </td>
                 <td>
-                    <button class="btn btn-warning" data-toggle="modal" data-target="#editEmployee"
+                    <button class="btn editButton" data-toggle="modal" data-target="#editEmployee"
                         (click)="selectEditObj(employee)">
-                        Edit
+                        E D I T
                     </button>
                 </td>
             </tr>

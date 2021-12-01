@@ -11,6 +11,7 @@ import { EmployeeModule } from './employee/employee.module';
 import { HttprequestInterceptor } from './core/interceptors/httprequest.interceptor';
 import { ResponseInterceptor } from './core/interceptors/response.interceptor';
 import { CoreModule } from './core/core.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { CoreModule } from './core/core.module';
     HttpClientModule,
     NgxPaginationModule,
     EmployeeModule,
-    CoreModule
+    CoreModule,
+    NgbModule
   ],
   providers: [
     {

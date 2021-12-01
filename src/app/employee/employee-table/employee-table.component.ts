@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ConfirmModalService } from 'src/app/core/services/confirm-modal.service';
 import { EmployeeService } from 'src/app/core/services/employee.service';
 import { IEmpData } from "../../core/Interfaces/interface";
 
@@ -10,57 +12,59 @@ import { IEmpData } from "../../core/Interfaces/interface";
 })
 export class EmployeeTableComponent {
 
-  employeeData:IEmpData[] = []
+  employeeData: IEmpData[] = []
   editObj!: IEmpData
-  public employeeEditObj:FormGroup;
+  public employeeEditObj: FormGroup;
 
-  constructor(private empDataSer:EmployeeService , private build:FormBuilder) {
+  constructor(private empDataSer: EmployeeService, private build: FormBuilder, private route: Router, private modalservice: ConfirmModalService) {
     this.getEmployeeData()
     this.employeeEditObj = this.build.group({
       id: [''],
-      username: ['',[Validators.required]],
+      username: ['', [Validators.required]],
       firstName: ['', [Validators.required]],
-      lastName: ['',Validators.required],
+      lastName: ['', Validators.required],
       email: ['', [Validators.required]],
       experience: ['', [Validators.required]],
-      appsDeveloped: ['',[Validators.required]],
-      gender: ['',[Validators.required]],
+      appsDeveloped: ['', [Validators.required]],
+      gender: ['', [Validators.required]],
       joiningTime: [''],
       imageUrl: ['']
     })
-   }
+  }
 
-   get editFromControls() {
+  get editFromControls() {
     return this.employeeEditObj.controls;
   }
 
   public getEmployeeData() {
-    this.empDataSer.getEmployeeData().subscribe((res:IEmpData[])=>{   
-      this.employeeData = res.filter((x:IEmpData)=>{
+    this.empDataSer.getEmployeeData().subscribe((res: IEmpData[]) => {
+      this.employeeData = res.filter((x: IEmpData) => {
         let date = new Date(x.joiningTime)
-        x.dateString = new Date( date.getMonth(), date.getDate(), date.getFullYear(), 0o0, 0o0, 0o0).getTime()
+        x.dateString = new Date(date.getMonth(), date.getDate(), date.getFullYear(), 0o0, 0o0, 0o0).getTime()
         return x;
       })
+    },
+    ()=>{
+      this.route.navigate(['networkError'])
     })
   }
 
-  sortByColumn($event : any) {
+  sortByColumn($event: any) {
     let colName: keyof IEmpData = $event.colName;
-    const isAscending: boolean = $event.isAscending;    
-    if(colName === "joiningTime")
-    {
+    const isAscending: boolean = $event.isAscending;
+    if (colName === "joiningTime") {
       colName = "dateString"
       this.employeeData = this.employeeData.sort(
-        this.compare( colName , isAscending)
-        )
+        this.compare(colName, isAscending)
+      )
     }
     else
-    this.employeeData = this.employeeData.sort(
-      this.compare(colName , isAscending)
+      this.employeeData = this.employeeData.sort(
+        this.compare(colName, isAscending)
       )
-   }
+  }
 
-   compare(colName : keyof IEmpData, isAsscending : boolean) {
+  compare(colName: keyof IEmpData, isAsscending: boolean) {
     return function(a: IEmpData, b: IEmpData) {
       if (a[colName].toString().toLowerCase() < b[colName].toString().toLowerCase()) {
         return isAsscending ? -1 : 1;
@@ -72,16 +76,22 @@ export class EmployeeTableComponent {
     };
   }
 
-  deleteRow(idNo:number) 
-  {
-    const user = this.employeeData[idNo-1].username
-    const conformationToDelete = confirm("Do you want to delete "+user+"?")
-    if(conformationToDelete)
-      this.empDataSer.deleteEmployee(idNo).subscribe(()=>this.getEmployeeData())
+  deleteRow(idNo: number, index: number) {
+    this.modalservice.confirm()
+    .then((confirmed:boolean) => {console.log('User confirmed:', confirmed)
+  })
+  .catch(() => {
+    console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)')
+    let testRet = this.modalservice.confirm();
+    console.log(testRet);
+    });
+    // const user = this.employeeData[index].username
+    // const conformationToDelete = confirm("Do you want to delete " + user + "?")
+    // if (conformationToDelete)
+    //   this.empDataSer.deleteEmployee(idNo).subscribe(() => this.getEmployeeData())
   }
 
-  selectEditObj(employee:IEmpData)
-  {
+  selectEditObj(employee: IEmpData) {
     this.editObj = employee
     this.employeeEditObj.controls['id'].setValue(employee.id);
     this.employeeEditObj.controls['firstName'].setValue(employee.firstName);
@@ -93,32 +103,35 @@ export class EmployeeTableComponent {
     this.employeeEditObj.controls['username'].setValue(employee.username);
   }
 
-  editEmployee()
-  {
-    const obj:IEmpData = this.employeeEditObj.value
+  resetEmployee() {
+      this.employeeEditObj.reset()
+  }
+
+  editEmployee() {
+    const obj: IEmpData = this.employeeEditObj.value
     obj.imageUrl = this.editObj.imageUrl
-    this.empDataSer.editEmployee(obj).subscribe(()=>this.getEmployeeData())
+    this.empDataSer.editEmployee(obj).subscribe(() => this.getEmployeeData())
   }
 
   addEmployee() {
     let addObj = this.employeeEditObj.value
     addObj.id = Math.round(Math.random() * 10000)
-    this.empDataSer.addEmployee(addObj).subscribe(()=>{
+    this.empDataSer.addEmployee(addObj).subscribe(() => {
       this.getEmployeeData()
     });
   }
 
-//    returnSortValue(colName , isAscending){
-//   return function(a:IEmpData ,b:IEmpData ) => {
-//     if (a[colName]> b[colName]) {
-//       return isAscending ? 1 : -1
-//     }
-//     if (a[colName] < b[colName]) {
-//       return isAscending ? -1 : 1
-//     }
-//     return 0;
-//   }
-// }
+  //    returnSortValue(colName , isAscending){
+  //   return function(a:IEmpData ,b:IEmpData ) => {
+  //     if (a[colName]> b[colName]) {
+  //       return isAscending ? 1 : -1
+  //     }
+  //     if (a[colName] < b[colName]) {
+  //       return isAscending ? -1 : 1
+  //     }
+  //     return 0;
+  //   }
+  // }
 
 }
 
